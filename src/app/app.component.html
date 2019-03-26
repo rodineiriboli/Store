@@ -1,11 +1,11 @@
 <div class="p-grid sample-layout">
   <div class="p-col-12 p-md-2">
-    <!-- <p-menu [model]="itemsMenu"></p-menu> -->
-    <div style="border: 1px solid black; width: 100%; height: 30px;">
+    <p-menu [model]="itemsMenu"></p-menu>
+    <!-- <div style="border: 1px solid black; width: 100%; height: 30px;">
       <span class="al-left">
           <i class="fa fa-anchor" aria-hidden="true"></i>
       </span>
-    </div>
+    </div> -->
   </div>
   <div class="p-col-12 p-md-10  p-col-nogutter">
     <div class="p-col-12 p-col-nogutter al-left">
@@ -51,7 +51,7 @@
                 Quantidade *:
               </div>
               <div class="ui-grid-col-6">
-                <input pInputText type="number"/>
+                <input pInputText type="number" formControlName="quantidade"/>
               </div>
             </div>
 
@@ -60,7 +60,8 @@
                 Preço *:
               </div>
               <div class="ui-grid-col-6">
-                <p-inputMask mask="9.999,99" placeholder="9.999,99"></p-inputMask>
+                <input pInputText type="number" formControlName="preco"/>
+                <!-- <p-inputMask formControlName="preco" mask="999,99" placeholder="999,99"></p-inputMask> -->
               </div>
               <div class="ui-grid-col-4">
                 <p-message severity="error" text="O campo Preço é obrigatório"
@@ -73,7 +74,7 @@
                   Produto Perecível:
                 </div>
                 <div class="ui-grid-col-1 al-left">
-                  <p-checkbox name="groupname" value="checkBoxValue"></p-checkbox>                  
+                  <p-checkbox name="groupname" value="checkBoxValue" formControlName="perecivel"></p-checkbox>                  
                 </div>
               </div>
 
@@ -82,13 +83,13 @@
                     Data de Validade:
                   </div>
                   <div class="ui-grid-col-2">
-                      <p-calendar [showIcon]="true"></p-calendar>                  
+                      <p-calendar [showIcon]="true" formControlName="dataValidade"></p-calendar>                  
                   </div>
                   <div class="ui-grid-col-2 al-right">
                       Data de Fabricação:
                     </div>
                     <div class="ui-grid-col-2">
-                        <p-calendar [showIcon]="true"></p-calendar>                  
+                        <p-calendar [showIcon]="true" formControlName="dataFabricacao"></p-calendar>                  
                     </div>
                 </div>
 

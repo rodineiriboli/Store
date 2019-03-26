@@ -67,10 +67,14 @@ export class AppComponent implements OnInit {
     this.userform = this.fb.group({
       'nomeItem': new FormControl('', Validators.required),
       'unidadeMedida': new FormControl('', Validators.required),
+      'quantidade': new FormControl(''),
       'preco': new FormControl('', Validators.required),
+      'perecivel': new FormControl('', Validators.required),
+      'dataValidade': new FormControl('', Validators.required),
+      'dataFabricacao': new FormControl('', Validators.required),
       // 'lastname': new FormControl('', Validators.required),
       // 'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      // 'description': new FormControl(''),
+      //  'description': new FormControl(''),
     });
 
     //navegação estrutural
@@ -86,17 +90,15 @@ export class AppComponent implements OnInit {
     ];
   }
   onSubmit(value: string) {
+    let quantidade = this.tratarUnidadeMedida();
+    
     this.submitted = true;
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Form Submitted' });
+    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Item incluido com sucesso' });
+  }
+
+  tratarUnidadeMedida() {
+    return JSON.stringify(this.userform.value.unidadeMedida);
   }
 
   get diagnostic() { return JSON.stringify(this.userform.value); }
-
-  addColumn() {
-    this.columns.push(this.columns.length);
-  }
-
-  removeColumn() {
-    this.columns.splice(-1, 1);
-  }
 }
