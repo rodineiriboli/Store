@@ -1,21 +1,131 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="p-grid sample-layout">
+  <div class="p-col-12 p-md-2">
+    <!-- <p-menu [model]="itemsMenu"></p-menu> -->
+    <div style="border: 1px solid black; width: 100%; height: 30px;">
+      <span class="al-left">
+          <i class="fa fa-anchor" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+  <div class="p-col-12 p-md-10  p-col-nogutter">
+    <div class="p-col-12 p-col-nogutter al-left">
+      <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
+    </div>
+    <p-card>
+
+      <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+      <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+        <p-panel header="Cadastro de Itens">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Nome do Item *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="nomeItem" placeholder="Required" />
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="O campo Nome do Item é obrigatório"
+                  *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty"></p-message>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Unidade de Medida *:
+              </div>
+              <div class="ui-grid-col-6">
+                <p-dropdown [options]="unidadesDeMedida" formControlName="unidadeMedida"></p-dropdown>
+                <!-- <p-dropdown [options]="genders" formControlName="gender"></p-dropdown> -->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="unidadeMedida is required"
+                  *ngIf="!userform.controls['unidadeMedida'].valid&&userform.controls['unidadeMedida'].dirty"></p-message>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Quantidade *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="number"/>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Preço *:
+              </div>
+              <div class="ui-grid-col-6">
+                <p-inputMask mask="9.999,99" placeholder="9.999,99"></p-inputMask>
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="O campo Preço é obrigatório"
+                  *ngIf="!userform.controls['preco'].valid&&userform.controls['preco'].dirty"></p-message>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2 al-right">
+                  Produto Perecível:
+                </div>
+                <div class="ui-grid-col-1 al-left">
+                  <p-checkbox name="groupname" value="checkBoxValue"></p-checkbox>                  
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-2 al-right">
+                    Data de Validade:
+                  </div>
+                  <div class="ui-grid-col-2">
+                      <p-calendar [showIcon]="true"></p-calendar>                  
+                  </div>
+                  <div class="ui-grid-col-2 al-right">
+                      Data de Fabricação:
+                    </div>
+                    <div class="ui-grid-col-2">
+                        <p-calendar [showIcon]="true"></p-calendar>                  
+                    </div>
+                </div>
+
+            <!-- <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Password *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="password" formControlName="password" placeholder="Required - Min(6)" />
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error"
+                  [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''"
+                  *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+              </div>
+            </div> -->
+            
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-6">
+                <button pButton type="submit" label="Submit" [disabled]="!userform.valid"></button>
+              </div>
+              <div class="ui-grid-col-4"></div>
+            </div>
+            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+              Form Submitted
+              <br>
+              {{diagnostic}}
+            </div>
+          </div>
+        </p-panel>
+      </form>
+    </p-card>
+  </div>
+  <div class="p-col-12">
+    Footer
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
 <router-outlet></router-outlet>
