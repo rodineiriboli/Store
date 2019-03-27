@@ -108,7 +108,7 @@ export class AppComponent implements OnInit {
     if (this.userform.value.perecivel === '')
       this.userform.value.perecivel = 'false';
 
-    this.setLocalStore(this.userform.value)
+    this.setLocalStore(JSON.stringify(this.userform.value))
 
     this.submitted = true;
     this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Item incluido com sucesso' });
@@ -117,7 +117,7 @@ export class AppComponent implements OnInit {
 
   // Salva dados na local store
   setLocalStore(data: string) {
-    JSON.stringify(this.localStore.set(data));
+    this.localStore.set(data);
   }
 
   // Busca dados na local store pela key
