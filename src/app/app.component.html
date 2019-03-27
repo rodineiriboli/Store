@@ -2,7 +2,7 @@
   <div class="p-col-12 p-md-2">
 
     <div style="width:100%; padding-bottom: 5px;">
-      <button pButton type="button" icon="pi pi-check" style="width:100%;" label="Cadastro"></button>
+      <button pButton type="button" icon="pi pi-check" style="width:100%;" label="Cadastro" (click)="getAllLocalStore()"></button>
     </div>
     <div style="width:100%; padding-bottom: 5px;">
       <button pButton type="button" icon="pi pi-check" style="width:100%;" label="Exibir"></button>
@@ -135,10 +135,10 @@
               </div>
               <div class="ui-grid-col-4"></div>
             </div>
-            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+            <!-- <div style="text-align:center;margin-top:20px" *ngIf="submitted">
               Form Submitted
 
-            </div>
+            </div> -->
           </div>
         </p-panel>
       </form>

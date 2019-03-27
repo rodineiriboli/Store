@@ -55,28 +55,28 @@ export class AppComponent implements OnInit {
   checkBoxValue: boolean;
 
 
-  constructor(private fb: FormBuilder, 
-              private messageService: MessageService, 
-              private localStore: LocalStore) { }
-  
+  constructor(private fb: FormBuilder,
+    private messageService: MessageService,
+    private localStore: LocalStore) { }
+
   ngOnInit() {
 
     //inicialização de unidade de medida
     this.unidadesDeMedida = [
-      {label:'Selecione', value:''},
-      {label:'Litro', value:{id:'1', name: 'Litro', code: 'lt'}},
-      {label:'Quilograma', value:{id:'2', name: 'Quilograma', code: 'kg'}},
-      {label:'Unidade', value:{id:'3', name: 'Unidade', code: 'un'}}
-  ];
+      { label: 'Selecione', value: '' },
+      { label: 'Litro', value: { id: '1', name: 'Litro', code: 'lt' } },
+      { label: 'Quilograma', value: { id: '2', name: 'Quilograma', code: 'kg' } },
+      { label: 'Unidade', value: { id: '3', name: 'Unidade', code: 'un' } }
+    ];
 
-  //validação do formulário
+    //validação do formulário
     this.userform = this.fb.group({
       'nomeItem': new FormControl('', Validators.compose(
-                                      [
-                                        Validators.required, 
-                                        Validators.maxLength(50),
-                                        Validators.pattern('[a-zA-Z ]*'),
-                                      ])),
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern('[a-zA-Z ]*'),
+        ])),
       'unidadeMedida': new FormControl('', Validators.required),
       'quantidade': new FormControl(''),
       'preco': new FormControl('', Validators.required),
@@ -98,21 +98,17 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  //Trata formulário para antes de salvar no localstore
   onSubmit(value: string) {
-
     this.userform.value.quantidade = this.userform.value.quantidade.toString();
     this.userform.value.preco = this.userform.value.preco.toString();
     this.userform.value.perecivel = this.userform.value.perecivel.toString();
     this.userform.value.dataFabricacao = this.userform.value.dataFabricacao.toLocaleDateString('pt-BR');
     this.userform.value.dataValidade = this.userform.value.dataValidade.toLocaleDateString('pt-BR');
-    if(this.userform.value.perecivel === '') 
+    if (this.userform.value.perecivel === '')
       this.userform.value.perecivel = 'false';
 
-
-this.setLocalStore(JSON.stringify(this.userform.value))
-
-
-  //console.log(JSON.stringify(this.userform.value));
+    this.setLocalStore(this.userform.value)
 
     this.submitted = true;
     this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Item incluido com sucesso' });
@@ -121,16 +117,29 @@ this.setLocalStore(JSON.stringify(this.userform.value))
 
   // Salva dados na local store
   setLocalStore(data: string) {
-    this.localStore.set(data);
+    JSON.stringify(this.localStore.set(data));
   }
 
   // Busca dados na local store pela key
   getLocalStore(key: string) {
-    return this.localStore.get(key);
+    return JSON.parse(this.localStore.get(key));
   }
 
   //Remove um item na local store
   removeLocalStore(key: string) {
     this.localStore.remove(key);
+  }
+
+  getAllLocalStore() {
+    var listItens = []
+
+    var key = this.localStore.returnKey()
+    var cont = parseInt(key)
+    
+    for (let index = 1; index <= cont; index++) {
+      var item = JSON.parse(this.localStore.get(index.toString()))
+      listItens.push(item)
+    }
+    return listItens
   }
 }

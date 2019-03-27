@@ -3,28 +3,62 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStore {
-  constructor() {}
+  constructor() { }
 
-    keyIncremment() {
-        try {
-            var key = localStorage.getItem('autoKey');
+  // incrementa a chave do localstore para simular auto incremento
+  keyIncremment() {
+    try {
+      var key = localStorage.getItem('autoKey');
 
-            if(key === null)
-                key = '0';
+      if (key === null)
+        key = '0';
 
-            var newKey = parseInt(key);
-            newKey++;
-            key = newKey.toString();
+      var newKey = parseInt(key);
+      newKey++;
+      key = newKey.toString();
 
-            localStorage.setItem('autoKey', key);
-        } catch (error) {
-            console.error('Erro ao recuperar chave auto incrementavel.', error);
-        }
-        return key;
+      localStorage.setItem('autoKey', key);
+
+    } catch (error) {
+      console.error('Erro ao recuperar chave auto incrementavel.', error);
     }
+    return key;
+  }
+
+  // Decrementa a chave do localstore
+  keyDecrement() {
+    try {
+      var key = localStorage.getItem('autoKey')
+
+      if (key === null)
+        key = '0';
+
+      var newKey = parseInt(key);
+      newKey--;
+      key = newKey.toString();
+
+      localStorage.setItem('autoKey', key);
+
+    } catch (error) {
+      console.error('Erro ao acessar chave auto incrementavel.', error);
+    }
+    return key;
+  }
+  returnKey() {
+    try {
+      var key = localStorage.getItem('autoKey');
+
+      if (key === null)
+        key = '0';
+
+    } catch (error) {
+      console.error('Erro ao recuperar chave auto incrementavel.', error);
+    }
+    return key;
+  }
 
   set(data: string): void {
-      var key = this.keyIncremment();
+    var key = this.keyIncremment();
     try {
       localStorage.setItem(key, data);
     } catch (error) {
@@ -34,7 +68,7 @@ export class LocalStore {
 
   get(key: string) {
     try {
-      return JSON.parse(localStorage.getItem(key));
+      return localStorage.getItem(key);
     } catch (error) {
       console.error('Erro ao retornar dado do localStore:', error);
       return null;
@@ -42,10 +76,11 @@ export class LocalStore {
   }
 
   remove(key: string) {
-      try  {
-          localStorage.removeItem(key);
-      } catch (error) {
-          console.error('Erro ao remover item do localStore:', error);
-      }
+    try {
+      localStorage.removeItem(key);
+      this.keyDecrement();
+    } catch (error) {
+      console.error('Erro ao remover item do localStore:', error);
+    }
   }
 }
