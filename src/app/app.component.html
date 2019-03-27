@@ -28,14 +28,13 @@
               </div>
 
               <div class="ui-grid-col-4">
-                  <p-message severity="error"
-                    [text]="userform.controls['nomeItem'].errors['required'] 
+                <p-message severity="error" [text]="userform.controls['nomeItem'].errors['required'] 
                     ? 'O campo Nome do Item é obrigatório'
                     : userform.controls['nomeItem'].errors['maxlength'] ? 'Número máximo de caracteres para o campo é 50'
                     : userform.controls['nomeItem'].errors['pattern'] ? 'Somente letras'
-                    : ''"
-                    *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty"></p-message>
-                </div>
+                    : ''" *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty">
+                </p-message>
+              </div>
 
               <!-- <div class="ui-grid-col-4">
                 <p-message severity="error" text="O campo Nome do Item é obrigatório"
@@ -52,8 +51,9 @@
                 <!-- <p-dropdown [options]="genders" formControlName="gender"></p-dropdown> -->
               </div>
               <div class="ui-grid-col-4">
-                <p-message severity="error" text="unidadeMedida is required"
-                  *ngIf="!userform.controls['unidadeMedida'].valid&&userform.controls['unidadeMedida'].dirty"></p-message>
+                <p-message severity="error" text="Selecione uma unidade de medida"
+                  *ngIf="!userform.controls['unidadeMedida'].valid&&userform.controls['unidadeMedida'].dirty">
+                </p-message>
               </div>
             </div>
 
@@ -62,7 +62,7 @@
                 Quantidade *:
               </div>
               <div class="ui-grid-col-6">
-                <input pInputText type="number" formControlName="quantidade"/>
+                <input pInputText type="number" formControlName="quantidade" />
               </div>
             </div>
 
@@ -71,7 +71,7 @@
                 Preço *:
               </div>
               <div class="ui-grid-col-6">
-                <input pInputText type="number" formControlName="preco"/>
+                <input pInputText type="number" formControlName="preco" />
                 <!-- <p-inputMask formControlName="preco" mask="999,99" placeholder="999,99"></p-inputMask> -->
               </div>
               <div class="ui-grid-col-4">
@@ -81,28 +81,28 @@
             </div>
 
             <div class="ui-grid-row">
-                <div class="ui-grid-col-2 al-right">
-                  Produto Perecível:
-                </div>
-                <div class="ui-grid-col-1 al-left">
-                  <p-checkbox name="groupname" binary="true" formControlName="perecivel"></p-checkbox>                  
-                </div>
+              <div class="ui-grid-col-2 al-right">
+                Produto Perecível:
               </div>
+              <div class="ui-grid-col-1 al-left">
+                <p-checkbox name="groupname" binary="true" formControlName="perecivel"></p-checkbox>
+              </div>
+            </div>
 
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 al-right">
-                    Data de Validade:
-                  </div>
-                  <div class="ui-grid-col-2">
-                      <p-calendar [showIcon]="true" formControlName="dataValidade"></p-calendar>                  
-                  </div>
-                  <div class="ui-grid-col-2 al-right">
-                      Data de Fabricação:
-                    </div>
-                    <div class="ui-grid-col-2">
-                        <p-calendar [showIcon]="true" formControlName="dataFabricacao"></p-calendar>                  
-                    </div>
-                </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Data de Validade:
+              </div>
+              <div class="ui-grid-col-2">
+                <p-calendar [showIcon]="true" formControlName="dataValidade"></p-calendar>
+              </div>
+              <div class="ui-grid-col-2 al-right">
+                Data de Fabricação:
+              </div>
+              <div class="ui-grid-col-2">
+                <p-calendar [showIcon]="true" formControlName="dataFabricacao"></p-calendar>
+              </div>
+            </div>
 
             <!-- <div class="ui-grid-row">
               <div class="ui-grid-col-2">
@@ -117,7 +117,7 @@
                   *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
               </div>
             </div> -->
-            
+
             <div class="ui-grid-row">
               <div class="ui-grid-col-2"></div>
               <div class="ui-grid-col-6">
