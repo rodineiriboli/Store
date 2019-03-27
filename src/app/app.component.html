@@ -1,12 +1,22 @@
 <div class="p-grid sample-layout">
   <div class="p-col-12 p-md-2">
-    <!-- <p-menu [model]="itemsMenu"></p-menu> -->
-    <div style="border: 1px solid black; width: 100%; height: 30px;">
+
+    <div style="width:100%; padding-bottom: 5px;">
+      <button pButton type="button" icon="pi pi-check" style="width:100%;" label="Cadastro"></button>
+    </div>
+    <div style="width:100%; padding-bottom: 5px;">
+      <button pButton type="button" icon="pi pi-check" style="width:100%;" label="Exibir"></button>
+    </div>
+
+    <!-- <p-menu [model]="itemsMenu p-col-12 p-md-2"></p-menu> -->
+
+    <!-- <div style="border: 1px solid black; width: 100%; height: 30px;">
       <span class="al-left">
           <i class="fa fa-anchor" aria-hidden="true"></i>
       </span>
-    </div>
+    </div> -->
   </div>
+  
   <div class="p-col-12 p-md-10  p-col-nogutter">
     <div class="p-col-12 p-col-nogutter al-left">
       <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
@@ -26,10 +36,20 @@
               <div class="ui-grid-col-6">
                 <input pInputText type="text" formControlName="nomeItem" placeholder="Required" />
               </div>
+
               <div class="ui-grid-col-4">
+                <p-message severity="error" [text]="userform.controls['nomeItem'].errors['required'] 
+                    ? 'O campo Nome do Item é obrigatório'
+                    : userform.controls['nomeItem'].errors['maxlength'] ? 'Número máximo de caracteres para o campo é 50'
+                    : userform.controls['nomeItem'].errors['pattern'] ? 'Somente letras'
+                    : ''" *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty">
+                </p-message>
+              </div>
+
+              <!-- <div class="ui-grid-col-4">
                 <p-message severity="error" text="O campo Nome do Item é obrigatório"
                   *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty"></p-message>
-              </div>
+              </div> -->
             </div>
 
             <div class="ui-grid-row">
@@ -41,8 +61,9 @@
                 <!-- <p-dropdown [options]="genders" formControlName="gender"></p-dropdown> -->
               </div>
               <div class="ui-grid-col-4">
-                <p-message severity="error" text="unidadeMedida is required"
-                  *ngIf="!userform.controls['unidadeMedida'].valid&&userform.controls['unidadeMedida'].dirty"></p-message>
+                <p-message severity="error" text="Selecione uma unidade de medida"
+                  *ngIf="!userform.controls['unidadeMedida'].valid&&userform.controls['unidadeMedida'].dirty">
+                </p-message>
               </div>
             </div>
 
@@ -51,7 +72,7 @@
                 Quantidade *:
               </div>
               <div class="ui-grid-col-6">
-                <input pInputText type="number"/>
+                <input pInputText type="number" formControlName="quantidade" />
               </div>
             </div>
 
@@ -60,7 +81,8 @@
                 Preço *:
               </div>
               <div class="ui-grid-col-6">
-                <p-inputMask mask="9.999,99" placeholder="9.999,99"></p-inputMask>
+                <input pInputText type="number" formControlName="preco" />
+                <!-- <p-inputMask formControlName="preco" mask="999,99" placeholder="999,99"></p-inputMask> -->
               </div>
               <div class="ui-grid-col-4">
                 <p-message severity="error" text="O campo Preço é obrigatório"
@@ -69,28 +91,28 @@
             </div>
 
             <div class="ui-grid-row">
-                <div class="ui-grid-col-2 al-right">
-                  Produto Perecível:
-                </div>
-                <div class="ui-grid-col-1 al-left">
-                  <p-checkbox name="groupname" value="checkBoxValue"></p-checkbox>                  
-                </div>
+              <div class="ui-grid-col-2 al-right">
+                Produto Perecível:
               </div>
+              <div class="ui-grid-col-1 al-left">
+                <p-checkbox name="groupname" binary="true" formControlName="perecivel"></p-checkbox>
+              </div>
+            </div>
 
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 al-right">
-                    Data de Validade:
-                  </div>
-                  <div class="ui-grid-col-2">
-                      <p-calendar [showIcon]="true"></p-calendar>                  
-                  </div>
-                  <div class="ui-grid-col-2 al-right">
-                      Data de Fabricação:
-                    </div>
-                    <div class="ui-grid-col-2">
-                        <p-calendar [showIcon]="true"></p-calendar>                  
-                    </div>
-                </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2 al-right">
+                Data de Validade:
+              </div>
+              <div class="ui-grid-col-2">
+                <p-calendar [showIcon]="true" formControlName="dataValidade" dateFormat="dd/mm/yy"></p-calendar>
+              </div>
+              <div class="ui-grid-col-2 al-right">
+                Data de Fabricação:
+              </div>
+              <div class="ui-grid-col-2">
+                <p-calendar [showIcon]="true" formControlName="dataFabricacao" dateFormat="dd/mm/yy"></p-calendar>
+              </div>
+            </div>
 
             <!-- <div class="ui-grid-row">
               <div class="ui-grid-col-2">
@@ -105,7 +127,7 @@
                   *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
               </div>
             </div> -->
-            
+
             <div class="ui-grid-row">
               <div class="ui-grid-col-2"></div>
               <div class="ui-grid-col-6">
@@ -115,8 +137,7 @@
             </div>
             <div style="text-align:center;margin-top:20px" *ngIf="submitted">
               Form Submitted
-              <br>
-              {{diagnostic}}
+
             </div>
           </div>
         </p-panel>

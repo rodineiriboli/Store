@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Injectable } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { MessageService, SelectItem } from 'primeng/api';
 
 import { MenuItem } from 'primeng/api';
+import { LocalStore } from './shared/localStore.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,12 @@ import { MenuItem } from 'primeng/api';
   providers: [MessageService],
   encapsulation: ViewEncapsulation.None
 })
+
+@Injectable()
 export class AppComponent implements OnInit {
+
+  private breadcrumbs: MenuItem[];
+  private itemsMenu: MenuItem[];
 
   //unidade de medida
   name: string;
@@ -48,29 +54,35 @@ export class AppComponent implements OnInit {
   //checkBox
   checkBoxValue: boolean;
 
-  private breadcrumbs: MenuItem[];
-  private itemsMenu: MenuItem[];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService) { }
+  constructor(private fb: FormBuilder, 
+              private messageService: MessageService, 
+              private localStore: LocalStore) { }
   
   ngOnInit() {
 
     //inicialização de unidade de medida
     this.unidadesDeMedida = [
       {label:'Selecione', value:''},
-      {label:'Litro', value:{id:1, name: 'Litro', code: 'lt'}},
-      {label:'Quilograma', value:{id:2, name: 'Quilograma', code: 'kg'}},
-      {label:'Unidade', value:{id:3, name: 'Unidade', code: 'un'}}
+      {label:'Litro', value:{id:'1', name: 'Litro', code: 'lt'}},
+      {label:'Quilograma', value:{id:'2', name: 'Quilograma', code: 'kg'}},
+      {label:'Unidade', value:{id:'3', name: 'Unidade', code: 'un'}}
   ];
 
   //validação do formulário
     this.userform = this.fb.group({
-      'nomeItem': new FormControl('', Validators.required),
+      'nomeItem': new FormControl('', Validators.compose(
+                                      [
+                                        Validators.required, 
+                                        Validators.maxLength(50),
+                                        Validators.pattern('[a-zA-Z ]*'),
+                                      ])),
       'unidadeMedida': new FormControl('', Validators.required),
+      'quantidade': new FormControl(''),
       'preco': new FormControl('', Validators.required),
-      // 'lastname': new FormControl('', Validators.required),
-      // 'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      // 'description': new FormControl(''),
+      'perecivel': new FormControl(''),
+      'dataValidade': new FormControl('', Validators.required),
+      'dataFabricacao': new FormControl('', Validators.required)
     });
 
     //navegação estrutural
@@ -85,18 +97,40 @@ export class AppComponent implements OnInit {
       { label: 'Listagem', icon: 'fa fa-list' }
     ];
   }
+
   onSubmit(value: string) {
+
+    this.userform.value.quantidade = this.userform.value.quantidade.toString();
+    this.userform.value.preco = this.userform.value.preco.toString();
+    this.userform.value.perecivel = this.userform.value.perecivel.toString();
+    this.userform.value.dataFabricacao = this.userform.value.dataFabricacao.toLocaleDateString('pt-BR');
+    this.userform.value.dataValidade = this.userform.value.dataValidade.toLocaleDateString('pt-BR');
+    if(this.userform.value.perecivel === '') 
+      this.userform.value.perecivel = 'false';
+
+
+this.setLocalStore(JSON.stringify(this.userform.value))
+
+
+  //console.log(JSON.stringify(this.userform.value));
+
     this.submitted = true;
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Form Submitted' });
+    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Item incluido com sucesso' });
+    this.userform.reset();
   }
 
-  get diagnostic() { return JSON.stringify(this.userform.value); }
-
-  addColumn() {
-    this.columns.push(this.columns.length);
+  // Salva dados na local store
+  setLocalStore(data: string) {
+    this.localStore.set(data);
   }
 
-  removeColumn() {
-    this.columns.splice(-1, 1);
+  // Busca dados na local store pela key
+  getLocalStore(key: string) {
+    return this.localStore.get(key);
+  }
+
+  //Remove um item na local store
+  removeLocalStore(key: string) {
+    this.localStore.remove(key);
   }
 }
