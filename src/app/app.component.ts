@@ -65,7 +65,12 @@ export class AppComponent implements OnInit {
 
   //validação do formulário
     this.userform = this.fb.group({
-      'nomeItem': new FormControl('', Validators.required),
+      'nomeItem': new FormControl('', Validators.compose(
+                                      [
+                                        Validators.required, 
+                                        Validators.maxLength(50),
+                                        Validators.pattern(/[A-z]/),
+                                      ])),
       'unidadeMedida': new FormControl('', Validators.required),
       'quantidade': new FormControl(''),
       'preco': new FormControl('', Validators.required),

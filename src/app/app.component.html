@@ -26,10 +26,21 @@
               <div class="ui-grid-col-6">
                 <input pInputText type="text" formControlName="nomeItem" placeholder="Required" />
               </div>
+
               <div class="ui-grid-col-4">
+                  <p-message severity="error"
+                    [text]="userform.controls['nomeItem'].errors['required'] 
+                    ? 'O campo Nome do Item é obrigatório'
+                    : userform.controls['nomeItem'].errors['maxlength'] ? 'Número máximo de caracteres para o campo é 50'
+                    : userform.controls['nomeItem'].errors['pattern'] ? 'Somente letras'
+                    : ''"
+                    *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty"></p-message>
+                </div>
+
+              <!-- <div class="ui-grid-col-4">
                 <p-message severity="error" text="O campo Nome do Item é obrigatório"
                   *ngIf="!userform.controls['nomeItem'].valid&&userform.controls['nomeItem'].dirty"></p-message>
-              </div>
+              </div> -->
             </div>
 
             <div class="ui-grid-row">
