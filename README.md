@@ -1,4 +1,4 @@
-# Cadastro e Listagem de itens
+# Cadastro e Listagem de Itens
 
 Requisitos
 - node v8 
