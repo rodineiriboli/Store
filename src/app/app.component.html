@@ -23,6 +23,8 @@
     </div>
     <p-card>
 
+        <router-outlet></router-outlet>
+        
       <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
       <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
@@ -148,5 +150,3 @@
     Footer
   </div>
 </div>
-
-<router-outlet></router-outlet>
