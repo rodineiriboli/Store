@@ -1,17 +1,29 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { LocalStore } from 'src/app/shared/localStore.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit, OnChanges {
+export class ListComponent {
 
-  constructor(private localStore: LocalStore) { }
+  itens: [] = <any>this.getAllLocalStore();
+
+  constructor(private localStore: LocalStore, http: HttpClient) {
+
+    //itens: [] = this.getAllLocalStore()
+    // http
+    // .get<Object[]>('http://localhost:4200/.../...')
+    // .subscribe(
+    //     itens => this.itens = itens,
+    //     err => console.log(err)
+    // );
+   }
 
   ngOnInit() {
-    this.getAllLocalStore()
+    //this.getAllLocalStore()
   }
 
   ngOnChanges() {

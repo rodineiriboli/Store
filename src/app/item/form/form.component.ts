@@ -98,7 +98,9 @@ export class FormComponent implements OnInit {
   onSubmit(value: string) {
     this.userform.value.quantidade = this.userform.value.quantidade.toString();
     this.userform.value.preco = this.userform.value.preco.toString();
-    this.userform.value.perecivel = this.userform.value.perecivel.toString();
+    this.userform.value.perecivel = this.userform.value.perecivel
+      ? this.userform.value.perecivel.toString()
+      : null;
     this.userform.value.dataFabricacao = this.userform.value.dataFabricacao.toLocaleDateString('pt-BR');
     this.userform.value.dataValidade = this.userform.value.dataValidade.toLocaleDateString('pt-BR');
     if (this.userform.value.perecivel === '')
@@ -131,7 +133,7 @@ export class FormComponent implements OnInit {
 
   //   var key = this.localStore.returnKey()
   //   var cont = parseInt(key)
-    
+
   //   for (let index = 1; index <= cont; index++) {
   //     var item = JSON.parse(this.localStore.get(index.toString()))
   //     listItens.push(item)

@@ -19,6 +19,7 @@ import {CalendarModule} from 'primeng/calendar';
 import { FormComponent } from './item/form/form.component';
 import { ListComponent } from './item/list/list.component';
 import {TableModule} from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {TableModule} from 'primeng/table';
     InputMaskModule,
     CheckboxModule,
     CalendarModule,
-    TableModule
+    TableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
