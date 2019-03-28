@@ -1,0 +1,24 @@
+<p-panel header="Listagem de Itens">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <table style="width:100%">
+                <tr>
+                    <th>Nome</th>
+                    <th>Unidade de Medida</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Produto Perecível</th>
+                    <th>Data de Fabricação</th>
+                    <th>Data de Validade</th>
+                </tr>
+                <tr *ngFor="let item of itens; index as i;">
+                    <td>{{ item.nomeItem }}</td>
+                    <td>{{ item.unidadeMedida.code }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.preco }}</td>
+                    <td>{{ item.perecivel ? 'Sim' : 'Não' }}</td>
+                    <td>{{ item.dataFabricacao }}</td>
+                    <td>{{ item.dataValidade }}</td>
+                </tr>
+            </table>
+    </div>
+</p-panel>

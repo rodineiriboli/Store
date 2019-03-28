@@ -16,10 +16,16 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputMaskModule} from 'primeng/inputmask';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
+import { FormComponent } from './item/form/form.component';
+import { ListComponent } from './item/list/list.component';
+import {TableModule} from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,9 @@ import {CalendarModule} from 'primeng/calendar';
     InputTextModule,
     InputMaskModule,
     CheckboxModule,
-    CalendarModule
+    CalendarModule,
+    TableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
