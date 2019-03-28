@@ -126,18 +126,18 @@ export class FormComponent implements OnInit {
     this.localStore.remove(key);
   }
 
-  getAllLocalStore() {
-    var listItens = []
+  // getAllLocalStore() {
+  //   var listItens = []
 
-    var key = this.localStore.returnKey()
-    var cont = parseInt(key)
+  //   var key = this.localStore.returnKey()
+  //   var cont = parseInt(key)
     
-    for (let index = 1; index <= cont; index++) {
-      var item = JSON.parse(this.localStore.get(index.toString()))
-      listItens.push(item)
-    }
-    console.log(listItens)
-    return listItens
-  }
+  //   for (let index = 1; index <= cont; index++) {
+  //     var item = JSON.parse(this.localStore.get(index.toString()))
+  //     listItens.push(item)
+  //   }
+  //   console.log(listItens)
+  //   return listItens
+  // }
 
 }

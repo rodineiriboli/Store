@@ -18,6 +18,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
 import { FormComponent } from './item/form/form.component';
 import { ListComponent } from './item/list/list.component';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ListComponent } from './item/list/list.component';
     InputTextModule,
     InputMaskModule,
     CheckboxModule,
-    CalendarModule
+    CalendarModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
